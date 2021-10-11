@@ -29,7 +29,7 @@ void add_to_list(NODE *head, int data) {
 
 			while(search->next != NULL)
 				search = search->next;
-
+			
 			search->next = new_node;
 		}
 	}
@@ -38,7 +38,6 @@ void add_to_list(NODE *head, int data) {
 bool empty_list(NODE *head) {
 	if(*head == NULL)
 		return true;
-
 	return false; 
 }
 
@@ -79,6 +78,24 @@ void delete_element(NODE *head, int data) {
 	}
 }
 
+struct node *search(NODE *head, int data) {
+	struct node* aux_node;
+	aux_node = *head;
+
+	if(empty_list(head) == true) {
+		puts("\n Empty list");
+		getch();
+	}
+	else {
+		while(aux_node->next != NULL) 
+			aux_node = aux_node->next;
+
+		if(aux_node->data == data)
+			return aux_node;
+	}
+	return aux_node->next;
+}
+
 void show_list(NODE *head) {
 	if(empty_list(head) == true) {
 		puts("\n Empty list");
@@ -102,4 +119,16 @@ int main(void) {
 	add_to_list(&head, 28);
 	show_list(&head);
 	delete_element(&head, 39);
+
+
+	struct node *location;
+	location = search(&head, 28);
+
+	if(location != NULL) {
+		printf("\n If found");
+	}
+	else {
+		puts("\n The data not found");
+		getch();
+	}
 }
