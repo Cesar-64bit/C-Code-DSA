@@ -87,9 +87,11 @@ struct node *search(NODE *head, int data) {
 		getch();
 	}
 	else {
-		while(aux_node->next != NULL) 
+		while(aux_node->next != NULL) {
+			if(aux_node->data == data)
+				return aux_node;
 			aux_node = aux_node->next;
-
+		}
 		if(aux_node->data == data)
 			return aux_node;
 	}
@@ -117,12 +119,14 @@ int main(void) {
 	NODE head = NULL;
 
 	add_to_list(&head, 28);
-	show_list(&head);
-	delete_element(&head, 39);
+	add_to_list(&head, 99);
+	add_to_list(&head, 1000);
 
+	show_list(&head);
+	//delete_element(&head, 39);
 
 	struct node *location;
-	location = search(&head, 28);
+	location = search(&head, 1000);
 
 	if(location != NULL) {
 		printf("\n If found");
