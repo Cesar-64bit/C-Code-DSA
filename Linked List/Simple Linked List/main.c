@@ -42,6 +42,7 @@ bool empty_list(NODE *head) {
 }
 
 void delete_element(NODE *head, int data) {
+	bool ban = false;
 	if(empty_list(head) == true) {
 		puts("\n Empty list");
 		getch();
@@ -60,6 +61,7 @@ void delete_element(NODE *head, int data) {
 				if(aux_node->data == data) {
 					previous->next = aux_node->next;
 					free(aux_node);
+					ban = true;
 					break;
 				}
 				previous = aux_node;
@@ -70,7 +72,7 @@ void delete_element(NODE *head, int data) {
 				previous->next = aux_node->next;
 				free(aux_node);
 			}
-			else {
+			else if(ban != true){
 				puts("\n No data found");
 				getch();
 			}
@@ -122,8 +124,9 @@ int main(void) {
 	add_to_list(&head, 99);
 	add_to_list(&head, 1000);
 
+	delete_element(&head, 99);
+
 	show_list(&head);
-	//delete_element(&head, 39);
 
 	struct node *location;
 	location = search(&head, 1000);
