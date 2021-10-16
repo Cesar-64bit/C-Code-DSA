@@ -38,11 +38,17 @@ int _add_node(NODE *head, int data)
 	}
 }
 
+bool _empty_list(NODE *head)
+{
+	if(*head == NULL)
+		return true;
+	return false;
+}
+
 void _show_list(NODE *head)
 {
-	if(*head == NULL) {
+	if(_empty_list(head) == true)
 		puts("\n Empty list");
-	}
 	else {
 		struct node *aux_node;
 		aux_node = *head;
