@@ -43,6 +43,7 @@ bool empty_list(NODE *head) {
 
 void delete_element(NODE *head, int data) {
 	bool ban = false;
+
 	if(empty_list(head) == true) {
 		puts("\n Empty list");
 		getch();
@@ -67,7 +68,7 @@ void delete_element(NODE *head, int data) {
 				previous = aux_node;
 				aux_node = aux_node->next;
 			}
-
+			
 			if(aux_node->data == data) {
 				previous->next = aux_node->next;
 				free(aux_node);
