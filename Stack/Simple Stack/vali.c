@@ -29,7 +29,7 @@ int valinum(int longitud) {
 
 	//strcpy(copia, numero);
 	int num = atoi(numero);
-	memset(numero,0,5);
+	memset(numero, 0, 5);
 
 	return num;
 }
