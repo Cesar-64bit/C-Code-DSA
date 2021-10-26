@@ -5,8 +5,7 @@ void menu(void) {
 	puts("\n 1. Agregar");
 	puts(" 2. Modificar");
 	puts(" 3. Eliminar");
-	puts(" 4. mostrar");
-	puts(" 5. Salir");
+	puts(" 4. Salir");
 	printf("\n\n Seleccione una opcion: ");
 }
 
@@ -19,6 +18,8 @@ int main(void) {
 	float peso;
 
 	do {
+		puts("Direccion\t\tID\t\tPeso\t\tNombre\t\tFecha\t\tDireccion sig.");
+		mostrar(&superior);
 		menu();
 		scanf("%c", &opcion);
 		system("cls");
@@ -46,6 +47,10 @@ int main(void) {
 				break;
 
 			case '2':
+				printf("\n --- MODIFICAR ---");
+
+				modificar(&superior);
+
 				printf("\n\n Presione cualquier tecla para continuar...");
 				getch();
 				break;
@@ -56,15 +61,8 @@ int main(void) {
 				printf("\n\n Presione cualquier tecla para continuar...");
 				getch();
 				break;
-
-			case '4':
-				mostrar(&superior);	
-
-				printf("\n\n Presione cualquier tecla para continuar...");
-				getch();
-				break;
 		}
-	}while(opcion != '5');
+	}while(opcion != '4');
 
 	return 0;
 }

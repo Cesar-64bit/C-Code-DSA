@@ -25,12 +25,13 @@ int valinum(int longitud) {
 		}
 	}while(indice == 0 || (caracter!=13 && indice<longitud));
 
-	char copia[indice];
+	//char copia[indice];
 
-	strcpy(copia, numero);
-	free(numero);
+	//strcpy(copia, numero);
+	int num = atoi(numero);
+	memset(numero,0,5);
 
-	return atoi(copia);
+	return num;
 }
 
 /*función para leer solamente números flotantes*/
@@ -83,6 +84,7 @@ float valifloat(int longitud) {
 	return atof(copia);
 }
 
+/*Función para capturar puro texto*/
 void valitext(char *nombre, int longitud) {
 	int indice = 0;
 	char caracter;
@@ -210,14 +212,15 @@ void valifecha(char *fecha) {
 				}
 			}
 			else if(((*(fecha+0)==51&&*(fecha+1)==48))) {
-				if(*(fecha+(indice-1))==48&&(caracter==52||caracter==54||caracter==57)) {
+				/*se agregó el 1*/
+				if(*(fecha+(indice-1))==48&&(caracter==49||caracter>=51&&caracter<=57)) {
 					printf("%c", caracter);
 					printf("/");
 					*(fecha+indice) = caracter;
 					*(fecha+(indice+1)) = '/';
 					indice+=2;
 				}
-				else if(*(fecha+(indice-1))==49&&(caracter==49)) {
+				else if(*(fecha+(indice-1))==49&&(caracter>=48&&caracter<=50)) {
 					printf("%c", caracter);
 					printf("/");
 					*(fecha+indice) = caracter;
@@ -240,7 +243,7 @@ void valifecha(char *fecha) {
 					indice+=2;	
 			}
 		}
-		else if(indice>=6&&indice<=9&&caracter!=8) {
+		else if(indice>=6&&indice<=9&&caracter!=8&&caracter!=13) {
 			printf("%c", caracter);
 			*(fecha+indice) = caracter;
 			*(anio+indanio) = caracter;
@@ -251,6 +254,9 @@ void valifecha(char *fecha) {
 			indice--;
 			printf("\b \b");
 			*(fecha+indice) = '\0';
+
+			if(indice>=6&&indice<=9)
+				indanio--;
 		}
 		if(indice==10&&*(fecha+0)==50&&*(fecha+1)==57&&*(fecha+3)==48&&*(fecha+4)==50) {
 			indice = evaluar(anio, indice);
@@ -263,9 +269,10 @@ void valifecha(char *fecha) {
 				printf("\n Fecha no valida, ingrese una nueva: ");
 				indanio = 0;
 				memset(fecha, 0, 10);
+				memset(anio, 0, 4);
 			}
 		}
 	}while(indice<10);
+	memset(anio,0,4);
 }
-
 /*Falta borrar y el año biciesto*/
