@@ -16,16 +16,14 @@ void _add_node(NODE *root, int data, struct node *new_node) {
 	if(data < current->data) {
 		if(current->left == NULL)
 			current->left = new_node;
-		else {
-			current = current->left;
-			_add_node(&current, data, new_node);
-		}
+		else
+			_add_node(&current->left, data, new_node);
 	}
 	else if(data > current->data) {
 		if(current->right == NULL)
 			current->right = new_node;
 		else
-			_add_node(root, data, new_node);
+			_add_node(&current->right, data, new_node);
 	}
 
 }
@@ -45,6 +43,19 @@ void _create_node(NODE *root, int data) {
 		_add_node(root, data, new_node);
 }
 
+/*Funtion to print a tree*/
+void _preorder(NODE *root) {
+	if(*root != NULL) {
+		struct node *current;
+		current = *root;
+
+		printf("%d\n", current->data);
+
+		_preorder(&current->left);
+		_preorder(&current->right);
+	}
+}
+
 int main(void) {
 	NODE root = NULL;
 
@@ -52,14 +63,10 @@ int main(void) {
 	_create_node(&root, 11);
 	_create_node(&root, 9);
 	_create_node(&root, 8);
+	_create_node(&root, 13);
+	_create_node(&root, 12);
 
-	struct node *auxiliar;
-	auxiliar = root;
-
-	printf("%d\n", auxiliar->data);
-	printf("%d\n", auxiliar->left->data);
-	printf("%d\n", auxiliar->right->data);
-	printf("%d", auxiliar->left->left->data);
+	_preorder(&root);
 
 	return 0;
 }
