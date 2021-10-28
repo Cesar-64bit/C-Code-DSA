@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 
 struct node {
 	struct node *left, *right;
@@ -43,30 +44,78 @@ void _create_node(NODE *root, int data) {
 		_add_node(root, data, new_node);
 }
 
-/*Funtion to print a tree*/
+/*Function to print a tree*/
 void _preorder(NODE *root) {
 	if(*root != NULL) {
 		struct node *current;
 		current = *root;
 
-		printf("%d\n", current->data);
-
+		printf("%d ", current->data);
 		_preorder(&current->left);
 		_preorder(&current->right);
 	}
 }
 
+void _inorder(NODE *root) {
+	if(*root != NULL){
+		struct node *current;
+		current = *root;
+
+		_inorder(&current->left);
+		printf("%d ", current->data);
+		_inorder(&current->right);
+	}
+}
+
+void _postorder(NODE *root) {
+	if(*root != NULL) {
+		struct node *current;
+		current = *root;
+
+		_postorder(&current->left);
+		_postorder(&current->right);
+		printf("%d ", current->data);
+	}
+}
+
 int main(void) {
 	NODE root = NULL;
+	
+	char option;
+	int data;
 
-	_create_node(&root, 10);
-	_create_node(&root, 11);
-	_create_node(&root, 9);
-	_create_node(&root, 8);
-	_create_node(&root, 13);
-	_create_node(&root, 12);
+	do {
+		system("cls");
+		printf(" 1. Insert\n");
+		printf(" 2. View tree\n");
+		printf(" 3. Exit\n\n");
+		printf(" Insert an option: ");
+		scanf("%c", &option);
 
-	_preorder(&root);
+		switch(option) {
+			case '1':
+				printf("\n Insert node: ");
+				scanf("%d", &data);
 
+				_create_node(&root, data);
+
+				getch();
+				break;
+
+			case '2':
+				printf("\n\n Preorder: ");
+				_preorder(&root);
+
+				printf("\n Inorder: ");
+				_inorder(&root);
+
+				printf("\n Postorder: ");
+				_postorder(&root);
+
+				getch();
+				break;
+		}
+
+	}while(option != '3');
 	return 0;
 }
