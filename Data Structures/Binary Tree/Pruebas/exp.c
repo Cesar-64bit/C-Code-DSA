@@ -78,6 +78,28 @@ void _postorder(NODE *root) {
 	}
 }
 
+/*Function to find the minimum data*/
+int _findmin(NODE *root) {
+	struct node *current;
+	current = *root;
+
+	if(current->left != NULL)
+		_findmin(&current->left);
+	else
+		return current->data;
+}
+
+/*Function to find the maximum data*/
+int _findmax(NODE *root) {
+	struct node *current;
+	current = *root;
+
+	if(current->right != NULL)
+		_findmax(&current->right);
+	else
+		return current->data;
+}
+
 int main(void) {
 	NODE root = NULL;
 	
@@ -111,6 +133,12 @@ int main(void) {
 
 				printf("\n Postorder: ");
 				_postorder(&root);
+
+				int MIN = _findmin(&root);
+				printf("\n Minumum: %d",MIN);
+
+				int MAX = _findmax(&root);
+				printf("\n Maximum: %d", MAX);
 
 				getch();
 				break;
