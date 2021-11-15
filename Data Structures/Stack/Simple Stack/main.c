@@ -1,68 +1,51 @@
 #include <stdio.h>
-#include "engine.h"
+#include <stdlib.h>
 
-void menu(void) {
-	puts("\n 1. Agregar");
-	puts(" 2. Modificar");
-	puts(" 3. Eliminar");
-	puts(" 4. Salir");
-	printf("\n\n Seleccione una opcion: ");
+struct node {
+	int data;
+	struct node *next;
+};
+
+typedef struct node *NODE;
+
+void push(NODE *top, int data) {
+	struct node *new_node;
+	new_node = (struct node*)malloc(sizeof(struct node));
+
+	new_node->data = data;
+	new_node->next = *top;
+	*top = new_node;
+}
+
+void pop(NODE *top) {
+	struct node *aux;
+	aux = *top;
+	*top = aux->next;
+	free(aux);
+}
+
+void print(NODE *top) {
+	struct node *search;
+	search = *top;
+
+	while(search->next != NULL) {
+		printf("[%d]", search->data);
+		search = search->next;
+	}
+	printf("[%d]", search->data);
 }
 
 int main(void) {
-	NODO superior = NULL;
-	char nombre[15];
-	char fecha[10];
-	char opcion;
-	int ID;
-	float peso;
+	NODE tail = NULL;
 
-	do {
-		puts("Direccion\t\tID\t\tPeso\t\tNombre\t\tFecha\t\tDireccion sig.");
-		mostrar(&superior);
-		menu();
-		scanf("%c", &opcion);
-		system("cls");
+	push(&tail, 3);
+	push(&tail, 2);
+	push(&tail, 1);
 
-		switch(opcion) {
-			case '1':
-				printf("\n --- AGREGAR ---");
-
-				printf("\n Ingrese el ID: ");
-				ID = valinum(5);
-
-				printf("\n Ingrese el peso: ");
-				peso = valifloat(10);
-
-				printf("\n Ingrese el nombre: ");
-				valitext(nombre, 15);
-
-				printf("\n Ingrese la fecha: ");
-				valifecha(fecha);
-
-				agregar(&superior, ID, peso, nombre, fecha);
-
-				printf("\n\n Presione cualquier tecla para continuar...");
-				getch();
-				break;
-
-			case '2':
-				printf("\n --- MODIFICAR ---");
-
-				modificar(&superior);
-
-				printf("\n\n Presione cualquier tecla para continuar...");
-				getch();
-				break;
-
-			case '3':
-				eliminar(&superior);
-
-				printf("\n\n Presione cualquier tecla para continuar...");
-				getch();
-				break;
-		}
-	}while(opcion != '4');
+	pop(&tail);
+	pop(&tail);
+	
+	print(&tail);
 
 	return 0;
 }
