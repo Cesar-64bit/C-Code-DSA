@@ -44,7 +44,7 @@ int main(void) {
 
 	pop(&tail);
 	pop(&tail);
-	
+				
 	print(&tail);
 
 	return 0;
