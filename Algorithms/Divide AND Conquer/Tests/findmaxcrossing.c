@@ -1,7 +1,7 @@
 /*Find Max Crossing Subarray, ALGORITHM*/
 #include <stdio.h>
 
-int fin_max_subarray(int A[], int low, int mid, int high) {
+int find_max_subarray(int A[], int low, int mid, int high) {
 	int left_sum = 0, sum = 0, max_left;
 
 	for(int i = mid; i >= low; i--) {
